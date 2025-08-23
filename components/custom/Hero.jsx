@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import SignInGoogleButton from "./SignInGoogleButton";
 
 function Hero() {
   return (
@@ -17,7 +18,7 @@ function Hero() {
       </p>
       <div className="flex gap-4 mt-6">
         <Button variant="outline">Try Demo</Button>
-        <Button>Get Started</Button>
+        <SignInGoogleButton />
       </div>
       <Image
         src={"/landing.png"}
