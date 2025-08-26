@@ -8,8 +8,17 @@ import { useDragDropElementLayout } from "@/app/provider";
 function ElementsSideBar() {
   const { dragElementLayout, setDragElementLayout } =
     useDragDropElementLayout();
+
   const onDragLayoutStart = layout => {
     setDragElementLayout({ dragLayout: { ...layout, id: Date.now() } });
+  };
+  const onDragElementStart = element => {
+    setDragElementLayout({
+      dragElement: {
+        ...element,
+        id: Date.now(),
+      },
+    });
   };
   return (
     <div className="p-5 h-screen overflow-y-auto">
@@ -28,7 +37,13 @@ function ElementsSideBar() {
       <h2 className="font-black text-lg mt-6">Elements</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-3">
         {ElementList.map((element, index) => (
-          <ElementLayoutCard layout={element} key={index} />
+          <div
+            key={index}
+            draggable
+            onDragStart={() => onDragElementStart(element)}
+          >
+            <ElementLayoutCard layout={element} />
+          </div>
         ))}
       </div>
     </div>
