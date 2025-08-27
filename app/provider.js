@@ -7,6 +7,7 @@ import { UserDetailContext } from "@/context/userDetailContext";
 import { ScreenSizeContext } from "@/context/ScreenSizeContext";
 import { DragDropLayoutElementContext } from "@/context/DragDropLayoutElementContext";
 import { EmailTemplateContext } from "@/context/EmailTemplateContext";
+import { SelectedElementContext } from "@/context/SelectedElement";
 
 function Provider({ children }) {
   const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
@@ -14,10 +15,15 @@ function Provider({ children }) {
   const [screenSize, setScreenSize] = useState("desktop");
   const [dragElementLayout, setDragElementLayout] = useState();
   const [emailTemplate, setEmailTemplate] = useState([]);
+  const [selectedElement, setSelectedElement] = useState();
 
   useEffect(() => {
     if (typeof window !== undefined) {
       const userStorageDetail = JSON.parse(localStorage.getItem("userDetail"));
+      const emailTemplateStorage = JSON.parse(
+        localStorage.getItem("emailTemplate")
+      );
+      setEmailTemplate(emailTemplateStorage ?? []);
       if (!userStorageDetail?.email || !userStorageDetail) {
         // Redirect to home page
       } else {
@@ -26,6 +32,25 @@ function Provider({ children }) {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      localStorage.setItem("emailTemplate", JSON.stringify(emailTemplate));
+    }
+  }, [emailTemplate]);
+  useEffect(() => {
+    const updatedEmailTemplates = [];
+    if (selectedElement) {
+      emailTemplate.forEach((item, index) => {
+        if (item?.id === selectedElement?.layout?.id) {
+          updatedEmailTemplates?.push(selectedElement?.layout);
+        } else {
+          updatedEmailTemplates?.push(item);
+        }
+      });
+      setEmailTemplate(updatedEmailTemplates);
+    }
+  }, [selectedElement]);
   return (
     <ConvexProvider client={convex}>
       <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
@@ -40,7 +65,11 @@ function Provider({ children }) {
               <EmailTemplateContext.Provider
                 value={{ emailTemplate, setEmailTemplate }}
               >
-                {children}
+                <SelectedElementContext.Provider
+                  value={{ selectedElement, setSelectedElement }}
+                >
+                  {children}
+                </SelectedElementContext.Provider>
               </EmailTemplateContext.Provider>
             </DragDropLayoutElementContext.Provider>
           </ScreenSizeContext.Provider>
@@ -64,6 +93,10 @@ export const useDragDropElementLayout = () => {
 
 export const useEmailTemplate = () => {
   return useContext(EmailTemplateContext);
+};
+
+export const useSelectedElement = () => {
+  return useContext(SelectedElementContext);
 };
 
 // кастомный хук для удобного доступа к контексту
