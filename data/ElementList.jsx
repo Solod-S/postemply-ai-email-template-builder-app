@@ -72,7 +72,7 @@ export default [
       textAlign: "center",
       fontSize: "22px",
       fontWeight: "normal",
-      //   textTransform: "uppercase", //uppercase lowercase , capitilized
+      textTransform: "uppercase", //uppercase lowercase , capitalized
     },
     outerStyle: {
       backgroundColor: "#fff",

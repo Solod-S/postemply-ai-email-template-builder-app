@@ -12,6 +12,7 @@ function SliderField({ label, value, onHandleStyleChange, type = "px" }) {
         {label} ({value})
       </label>
       <Slider
+        className="mt-1"
         onValueChange={v => {
           const number = Number(v);
 
