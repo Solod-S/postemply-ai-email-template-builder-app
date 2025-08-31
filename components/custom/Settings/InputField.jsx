@@ -7,7 +7,13 @@ function InputField({ label, value, onHandleInputChange }) {
       <label>{label}</label>
       <Input
         value={value}
-        onChange={e => onHandleInputChange(e.target.value)}
+        onChange={e => {
+          if (e.target.value.length > 0) {
+            onHandleInputChange(e.target.value);
+          } else {
+            onHandleInputChange(" ");
+          }
+        }}
       />
     </div>
   );

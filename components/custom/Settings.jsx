@@ -16,6 +16,7 @@ import {
   CaseUpper,
 } from "lucide-react";
 import DropDownField from "./Settings/DropDownField";
+import ImagePreview from "./Settings/ImagePreview";
 
 const TetAlignOptions = [
   { value: "left", icon: AlignLeft },
@@ -64,6 +65,25 @@ function Settings() {
 
     setSelectedElement(updatedElement);
   };
+  const onHandleOuterStyleChange = (fieldName, value) => {
+    console.log(fieldName, " value " + value);
+
+    let updatedElement = {
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          outerStyle: {
+            ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
+            [fieldName]: value, // <--- сюда
+          },
+        },
+      },
+    };
+
+    setSelectedElement(updatedElement);
+  };
 
   return (
     <div className="p-5 flex flex-col gap-3">
@@ -75,6 +95,15 @@ function Settings() {
           onHandleInputChange={value => onHandleInputChange("content", value)}
         />
       )}
+
+      {element?.imageUrl && (
+        <ImagePreview
+          label={"Image Preview"}
+          value={element?.imageUrl}
+          onHandleInputChange={value => onHandleInputChange("imageUrl", value)}
+        />
+      )}
+      {/* ImagePreview */}
       {element?.url && (
         <InputField
           label={"Url"}
@@ -155,6 +184,13 @@ function Settings() {
           onHandleStyleChange={value => onHandleStyleChange("padding", value)}
         />
       )}
+      {element?.style?.margin && (
+        <InputStyleField
+          label={"Margin"}
+          value={element?.style?.margin}
+          onHandleStyleChange={value => onHandleStyleChange("margin", value)}
+        />
+      )}
       {element?.style?.borderRadius && (
         <SliderField
           label={"Border Radius"}
@@ -164,6 +200,28 @@ function Settings() {
           }
         />
       )}
+      <div>
+        <h2 className="font-bold mb-2">Outer Style</h2>
+        {element?.outerStyle?.backgroundColor && (
+          <ColorPickerField
+            label={"Background Color"}
+            value={element?.outerStyle?.backgroundColor}
+            onHandleStyleChange={value =>
+              onHandleOuterStyleChange("backgroundColor", value)
+            }
+          />
+        )}
+        {element?.outerStyle?.justifyContent && (
+          <ToggleGroupFiled
+            label={"Align"}
+            value={element?.outerStyle?.justifyContent}
+            options={TetAlignOptions}
+            onHandleStyleChange={value =>
+              onHandleOuterStyleChange("justifyContent", value)
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }
