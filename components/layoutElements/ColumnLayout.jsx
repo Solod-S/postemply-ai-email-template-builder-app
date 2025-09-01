@@ -13,7 +13,7 @@ import LogoHeaderComponent from "../custom/ElementComponents/LogoHeaderComponent
 import DividerComponent from "../custom/ElementComponents/DividerComponent";
 import SocialMediaIcons from "../custom/ElementComponents/SocialIconsComponent";
 import TextAreaComponent from "../custom/ElementComponents/TextAreaComponent";
-import { Trash } from "lucide-react";
+import { ArrowDown, ArrowUp, Trash, Copy } from "lucide-react";
 
 function ColumnLayout({ layout }) {
   const [dragOver, setDragOver] = useState();
@@ -29,8 +29,8 @@ function ColumnLayout({ layout }) {
 
   const onDropHandle = () => {
     const index = dragOver?.index;
-    setEmailTemplate(prevItem =>
-      prevItem?.map(col =>
+    setEmailTemplate((prevItem) =>
+      prevItem?.map((col) =>
         col.id === layout?.id
           ? { ...col, [index]: dragElementLayout?.dragElement }
           : col
@@ -39,7 +39,7 @@ function ColumnLayout({ layout }) {
     setDragOver(null);
   };
 
-  const GetElementComponent = element => {
+  const GetElementComponent = (element) => {
     if (element?.type === "Button") {
       return <ButtonComponent {...element} />;
     } else if (element?.type === "Text") {
@@ -61,12 +61,61 @@ function ColumnLayout({ layout }) {
     return element?.type;
   };
 
-  const deleteLayout = layoutId => {
+  const deleteLayout = (layoutId) => {
     const updateEmailTemplate = emailTemplate?.filter(
-      item => item?.id !== layoutId
+      (item) => item?.id !== layoutId
     );
     setEmailTemplate(updateEmailTemplate);
     setSelectedElement(null);
+  };
+  // Logic for moveItemUp and moveItemDown
+  const moveItemUp = (layoutId) => {
+    const index = emailTemplate.findIndex((item) => item?.id === layoutId);
+
+    if (index > 0) {
+      setEmailTemplate((prevItem) => {
+        const updatedItems = [...prevItem];
+        // Swap the current item const temp = updatedItems[index]; updatedItems[index] = updatedItems[index - 1]; updatedItems[index - 1] = temp;
+
+        [updatedItems[index], updatedItems[index - 1]] = [
+          updatedItems[index - 1],
+          updatedItems[index],
+        ];
+        return updatedItems;
+      });
+    }
+  };
+
+  const moveItemDown = (layoutId) => {
+    const index = emailTemplate.findIndex((item) => item?.id === layoutId);
+
+    if (index < emailTemplate.length) {
+      setEmailTemplate((prevItem) => {
+        const updatedItems = [...prevItem];
+        // Swap the current item const temp = updatedItems[index]; updatedItems[index] = updatedItems[index + 1]; updatedItems[index + 1] = temp;
+        [updatedItems[index], updatedItems[index + 1]] = [
+          updatedItems[index + 1],
+          updatedItems[index],
+        ];
+        return updatedItems;
+      });
+    }
+  };
+
+  const copyLayout = (layoutId) => {
+    setEmailTemplate((prev) => {
+      const index = prev.findIndex((item) => item?.id === layoutId);
+      if (index === -1) return prev;
+
+      const newItem = {
+        ...prev[index],
+        id: Date.now().toString(), // уникальный id
+      };
+
+      const updated = [...prev];
+      updated.splice(index + 1, 0, newItem); // вставляем сразу после
+      return updated;
+    });
   };
 
   return (
@@ -87,18 +136,39 @@ function ColumnLayout({ layout }) {
              ${selectedElement?.layout?.id == layout?.id && selectedElement?.index == index && `border-blue-500 border-2`}`}
             key={index}
             onDrop={onDropHandle}
-            onDragOver={event => onDragOverHandle(event, index)}
+            onDragOver={(event) => onDragOverHandle(event, index)}
             onClick={() => setSelectedElement({ layout, index })}
           >
             {GetElementComponent(layout?.[index]) ?? "Drag Element Here"}
           </div>
         ))}
         {selectedElement?.layout?.id == layout?.id && (
-          <div
-            className="absolute -right-10 bg-gray-100 p-2 rounded-full border-1 border-red-500 cursor-pointer hover:scale-115 transition-all hover:shadow-md"
-            onClick={() => deleteLayout(layout?.id)}
-          >
-            <Trash className="h-4 w-4 text-red-500" />
+          <div className="absolute -right-10 flex gap-2 flex-col">
+            <div
+              className="rounded-full bg-green-100 p-2 border-2 border-black-500 cursor-pointer hover:scale-115 transition-all hover:shadow-md"
+              onClick={() => copyLayout(layout.id)}
+            >
+              <Copy className="h-4 w-4 text-green-600" />
+            </div>
+
+            <div
+              className="rounded-full bg-gray-100 p-2 border-2 border-black-500 cursor-pointer hover:scale-115 transition-all hover:shadow-md"
+              onClick={() => moveItemUp(layout.id)}
+            >
+              <ArrowUp className="h-4 w-4" />
+            </div>
+            <div
+              className="rounded-full bg-gray-100 p-2 border-2 border-black-500 cursor-pointer hover:scale-115 transition-all hover:shadow-md"
+              onClick={() => moveItemDown(layout.id)}
+            >
+              <ArrowDown className="h-4 w-4" />
+            </div>
+            <div
+              className="rounded-full bg-purple-100 p-2 border-1 border-red-500 cursor-pointer hover:scale-115 transition-all hover:shadow-md"
+              onClick={() => deleteLayout(layout?.id)}
+            >
+              <Trash className="h-4 w-4 text-red-500" />
+            </div>
           </div>
         )}
       </div>
