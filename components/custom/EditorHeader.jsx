@@ -1,12 +1,58 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Code, Monitor, Smartphone } from "lucide-react";
-import { useScreenSize } from "@/app/provider";
+import { useEmailTemplate, useScreenSize } from "@/app/provider";
+import { FaRegSave } from "react-icons/fa";
+import { MdSaveAlt, MdOpenInNew } from "react-icons/md";
+import { useMutation } from "convex/react";
+import { useParams } from "next/navigation";
+import { api } from "@/convex/_generated/api";
 
-function EditorHeader() {
+function EditorHeader({ viewHTMLCode }) {
   const { screenSize, setScreenSize } = useScreenSize();
+  const updatedEmailTemplate = useMutation(
+    api.emailTemplate.UpdateTemplateDesign
+  );
+  const { templateId } = useParams();
+  const { emailTemplate, setEmailTemplate } = useEmailTemplate();
+
+  const [isSaved, setIsSaved] = useState(false); // <-- new state for "saved"
+
+  const onSaveTemplate = async () => {
+    await updatedEmailTemplate({
+      tid: templateId,
+      design: JSON.stringify(emailTemplate),
+    });
+    setIsSaved(true); // <-- set saved true after save
+    setTimeout(() => setIsSaved(false), 2000); // <-- hide "saved" after 2 seconds
+  };
+
+  const copyEmailTemplate = () => {
+    const emailElement = document.getElementById("email-preview"); // or whatever your preview container id is
+
+    if (!emailElement) {
+      console.error("Email preview not found.");
+      return;
+    }
+
+    const range = document.createRange();
+    range.selectNodeContents(emailElement);
+
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    try {
+      document.execCommand("copy");
+      alert("Template copied! Now paste it into Gmail 🎯");
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+
+    selection.removeAllRanges();
+  };
   return (
     <div className="p-4  shadow-md flex justify-between items-center">
       <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
@@ -30,11 +76,33 @@ function EditorHeader() {
         <Button
           variant="ghost"
           className="hover:text-primary hover:bg-purple-50"
+          onClick={() => viewHTMLCode(true)}
         >
           <Code />
         </Button>
-        <Button variant="outline">Send Test Email</Button>
-        <Button>Save Template</Button>
+        <Button
+          onClick={copyEmailTemplate}
+          className="flex items-center bg-slate-100 rounded-sm cursor-pointer hover:bg-slate-100 gap-1 text-slate-800 border-2 border-slate-300"
+        >
+          Copy Template
+          <MdOpenInNew />
+        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={onSaveTemplate}
+            className="flex items-center bg-violet-600 rounded-sm cursor-pointer hover:bg-violet-700 gap-1"
+          >
+            {isSaved ? (
+              <span className="text-slate-50 font-semibold text-sm flex items-center gap-1">
+                Saved! <FaRegSave />
+              </span>
+            ) : (
+              <>
+                Save Template <FaRegSave />
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
