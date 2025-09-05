@@ -16,11 +16,11 @@ function Editor() {
   const { emailTemplate, setEmailTemplate } = useEmailTemplate();
   const convex = useConvex();
 
-  // useEffect(() => {
-  //   if (userDetail) {
-  //     GetTemplateData();
-  //   }
-  // }, [userDetail]);
+  useEffect(() => {
+    if (userDetail) {
+      GetTemplateData();
+    }
+  }, [userDetail]);
 
   const GetTemplateData = async () => {
     const result = await convex.query(api.emailTemplate.GetTemplateDesign, {

@@ -19,7 +19,7 @@ export const SaveTemplate = mutation({
       });
       return result;
     } catch (e) {
-      console.error("Mutation Error:", e);
+      console.error("SaveTemplate Mutation Error:", e);
     }
   },
 });
@@ -51,7 +51,7 @@ export const GetTemplateDesign = query({
 
       return { ...template, design: parsedDesign };
     } catch (e) {
-      console.error("Query Error:", e);
+      console.error("GetTemplateDesign Query Error:", e);
       return {};
     }
   },

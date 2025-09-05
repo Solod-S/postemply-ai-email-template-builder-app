@@ -27,7 +27,6 @@ function Provider({ children }) {
       if (!userStorageDetail?.email || !userStorageDetail) {
         // Redirect to home page
       } else {
-        console.log(`userStorageDetail: `, userStorageDetail);
         setUserDetail(userStorageDetail);
       }
     }

@@ -24,7 +24,7 @@ function AllInputBox() {
       const result = await axios.post("/api/ai-email-generate", {
         prompt: PROMPT,
       });
-      console.log(result.data);
+
       // Save the data in DB
       const resp = await SaveTemplate({
         tid: tid,
@@ -32,7 +32,7 @@ function AllInputBox() {
         email: userDetail?.email, // Ensure this is not undefined
         description: userInput,
       });
-      console.log("Template saved successfully!");
+      console.log("Template saved successfully!", resp);
       // Navigate User to editor Screen/Page
       router.push("/editor/" + tid);
 
