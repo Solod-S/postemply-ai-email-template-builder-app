@@ -92,7 +92,7 @@ function Settings() {
         <InputField
           label={"Content"}
           value={element?.content}
-          onHandleInputChange={value => onHandleInputChange("content", value)}
+          onHandleInputChange={(value) => onHandleInputChange("content", value)}
         />
       )}
 
@@ -100,7 +100,9 @@ function Settings() {
         <ImagePreview
           label={"Image Preview"}
           value={element?.imageUrl}
-          onHandleInputChange={value => onHandleInputChange("imageUrl", value)}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("imageUrl", value)
+          }
         />
       )}
       {/* ImagePreview */}
@@ -108,14 +110,16 @@ function Settings() {
         <InputField
           label={"Url"}
           value={element?.url}
-          onHandleInputChange={value => onHandleInputChange("url", value)}
+          onHandleInputChange={(value) => onHandleInputChange("url", value)}
         />
       )}
       {element?.textarea && (
         <TextAreaField
           label={"Text Area"}
           value={element?.textarea}
-          onHandleInputChange={value => onHandleInputChange("textarea", value)}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("textarea", value)
+          }
         />
       )}
       {element?.style?.textAlign && (
@@ -123,7 +127,9 @@ function Settings() {
           label={"Text Align"}
           options={TetAlignOptions}
           value={element?.style?.textAlign}
-          onHandleStyleChange={value => onHandleStyleChange("textAlign", value)}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("textAlign", value)
+          }
         />
       )}
       {element?.style?.width && (
@@ -131,14 +137,14 @@ function Settings() {
           label={"Width"}
           value={element?.style?.width}
           type="%"
-          onHandleStyleChange={value => onHandleStyleChange("width", value)}
+          onHandleStyleChange={(value) => onHandleStyleChange("width", value)}
         />
       )}
       {element?.style?.backgroundColor && (
         <ColorPickerField
           label={"Background Color"}
           value={element?.style?.backgroundColor}
-          onHandleStyleChange={value =>
+          onHandleStyleChange={(value) =>
             onHandleStyleChange("backgroundColor", value)
           }
         />
@@ -147,7 +153,7 @@ function Settings() {
         <ColorPickerField
           label={"Text Color"}
           value={element?.style?.color}
-          onHandleStyleChange={value => onHandleStyleChange("color", value)}
+          onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
         />
       )}
       {element?.style?.textTransform && (
@@ -155,7 +161,7 @@ function Settings() {
           label={"Text Transform"}
           options={TetTransformOptions}
           value={element?.style?.textTransform}
-          onHandleStyleChange={value =>
+          onHandleStyleChange={(value) =>
             onHandleStyleChange("textTransform", value)
           }
         />
@@ -164,7 +170,9 @@ function Settings() {
         <InputStyleField
           label={"Font Size"}
           value={element?.style?.fontSize}
-          onHandleStyleChange={value => onHandleStyleChange("fontSize", value)}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("fontSize", value)
+          }
         />
       )}
       {element?.style?.fontWeight && (
@@ -172,7 +180,7 @@ function Settings() {
           label={"Font Weight"}
           options={["normal", "bold"]}
           value={element?.style?.fontWeight}
-          onHandleStyleChange={value =>
+          onHandleStyleChange={(value) =>
             onHandleStyleChange("fontWeight", value)
           }
         />
@@ -181,21 +189,21 @@ function Settings() {
         <InputStyleField
           label={"Padding"}
           value={element?.style?.padding}
-          onHandleStyleChange={value => onHandleStyleChange("padding", value)}
+          onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
         />
       )}
       {element?.style?.margin && (
         <InputStyleField
           label={"Margin"}
           value={element?.style?.margin}
-          onHandleStyleChange={value => onHandleStyleChange("margin", value)}
+          onHandleStyleChange={(value) => onHandleStyleChange("margin", value)}
         />
       )}
       {element?.style?.borderRadius && (
         <SliderField
           label={"Border Radius"}
           value={element?.style?.borderRadius}
-          onHandleStyleChange={value =>
+          onHandleStyleChange={(value) =>
             onHandleStyleChange("borderRadius", value)
           }
         />
@@ -206,7 +214,7 @@ function Settings() {
           <ColorPickerField
             label={"Background Color"}
             value={element?.outerStyle?.backgroundColor}
-            onHandleStyleChange={value =>
+            onHandleStyleChange={(value) =>
               onHandleOuterStyleChange("backgroundColor", value)
             }
           />
@@ -216,7 +224,7 @@ function Settings() {
             label={"Align"}
             value={element?.outerStyle?.justifyContent}
             options={TetAlignOptions}
-            onHandleStyleChange={value =>
+            onHandleStyleChange={(value) =>
               onHandleOuterStyleChange("justifyContent", value)
             }
           />

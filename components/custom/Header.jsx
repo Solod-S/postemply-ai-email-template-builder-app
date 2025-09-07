@@ -10,7 +10,9 @@ function Header() {
   const { userDetail, setUserDetail } = useUserDetail();
   return (
     <div className="flex items-center justify-between p-4 shadow-md">
-      <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
+      <Link href={"/"}>
+        <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
+      </Link>
       <div className="">
         {userDetail?.email ? (
           <div className="flex gap-3 items-center">

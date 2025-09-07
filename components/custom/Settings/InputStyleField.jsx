@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import React from "react";
 
 function InputStyleField({ label, value, onHandleStyleChange, type = "px" }) {
-  const FormattedValue = value_ => {
+  const FormattedValue = (value_) => {
     return Number(value_.toString().replace(type, ""));
   };
 
@@ -13,9 +13,10 @@ function InputStyleField({ label, value, onHandleStyleChange, type = "px" }) {
         <Input
           type="text"
           value={FormattedValue(value)}
-          onChange={e => {
+          onChange={(e) => {
             const value = e.target.value;
             const number = Number(value);
+            console.log(`number`, number);
 
             if (isNaN(number)) {
               return;

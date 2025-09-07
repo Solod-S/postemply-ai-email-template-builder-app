@@ -9,6 +9,8 @@ import { MdSaveAlt, MdOpenInNew } from "react-icons/md";
 import { useMutation } from "convex/react";
 import { useParams } from "next/navigation";
 import { api } from "@/convex/_generated/api";
+import Link from "next/link";
+import { toast } from "sonner";
 
 function EditorHeader({ viewHTMLCode }) {
   const { screenSize, setScreenSize } = useScreenSize();
@@ -21,12 +23,18 @@ function EditorHeader({ viewHTMLCode }) {
   const [isSaved, setIsSaved] = useState(false); // <-- new state for "saved"
 
   const onSaveTemplate = async () => {
-    await updatedEmailTemplate({
-      tid: templateId,
-      design: JSON.stringify(emailTemplate),
-    });
-    setIsSaved(true); // <-- set saved true after save
-    setTimeout(() => setIsSaved(false), 2000); // <-- hide "saved" after 2 seconds
+    try {
+      await updatedEmailTemplate({
+        tid: templateId,
+        design: JSON.stringify(emailTemplate),
+      });
+      setIsSaved(true); // <-- set saved true after save
+      toast.success("Template saved successfully 🎉");
+      setTimeout(() => setIsSaved(false), 2000); // <-- hide "saved" after 2 seconds
+    } catch (error) {
+      console.log("Error saving template:", error);
+      toast.error("Failed to save template ❌");
+    }
   };
 
   const copyEmailTemplate = () => {
@@ -34,6 +42,7 @@ function EditorHeader({ viewHTMLCode }) {
 
     if (!emailElement) {
       console.error("Email preview not found.");
+      toast.error("Email preview not found. ❌");
       return;
     }
 
@@ -46,16 +55,20 @@ function EditorHeader({ viewHTMLCode }) {
 
     try {
       document.execCommand("copy");
-      alert("Template copied! Now paste it into Gmail 🎯");
+      // alert("Template copied! Now paste it into Gmail 🎯");
+      toast.success("Template copied! Now paste it into Gmail 🎯");
     } catch (err) {
       console.error("Failed to copy:", err);
+      toast.error("Failed to copy email template ❌");
     }
 
     selection.removeAllRanges();
   };
   return (
     <div className="p-4  shadow-md flex justify-between items-center">
-      <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
+      <Link href={"/"}>
+        <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
+      </Link>
       <div className="flex gap-3">
         <Button
           onClick={() => setScreenSize("desktop")}
