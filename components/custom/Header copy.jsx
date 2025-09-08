@@ -39,14 +39,15 @@ function Header() {
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
-                {/* <DropdownMenuItem disabled>
+                <DropdownMenuItem disabled>
                   {userDetail?.name || "User"}
-                </DropdownMenuItem> */}
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <SignOutGoogleButton />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <SignOutGoogleButton />
           </div>
         ) : (
           <SignInGoogleButton />

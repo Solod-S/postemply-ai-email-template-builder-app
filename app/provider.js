@@ -3,15 +3,19 @@ import React, { use, useContext, useEffect, useState } from "react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { ReactNode } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserDetailContext } from "@/context/userDetailContext";
+
 import { ScreenSizeContext } from "@/context/ScreenSizeContext";
 import { DragDropLayoutElementContext } from "@/context/DragDropLayoutElementContext";
 import { EmailTemplateContext } from "@/context/EmailTemplateContext";
 import { SelectedElementContext } from "@/context/SelectedElement";
+import AuthGuard from "./authGuard";
+import { useRouter, usePathname } from "next/navigation";
+import { UserDetailContext } from "@/context/UserDetailContext";
 
 function Provider({ children }) {
   const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
-  const [userDetail, setUserDetail] = useState({});
+  const router = useRouter();
+  const [userDetail, setUserDetail] = useState(null);
   const [screenSize, setScreenSize] = useState("desktop");
   const [dragElementLayout, setDragElementLayout] = useState();
   const [emailTemplate, setEmailTemplate] = useState([]);
@@ -25,7 +29,7 @@ function Provider({ children }) {
       );
       setEmailTemplate(emailTemplateStorage ?? []);
       if (!userStorageDetail?.email || !userStorageDetail) {
-        // Redirect to home page
+        setUserDetail({});
       } else {
         setUserDetail(userStorageDetail);
       }
@@ -67,7 +71,7 @@ function Provider({ children }) {
                 <SelectedElementContext.Provider
                   value={{ selectedElement, setSelectedElement }}
                 >
-                  {children}
+                  <AuthGuard>{children}</AuthGuard>
                 </SelectedElementContext.Provider>
               </EmailTemplateContext.Provider>
             </DragDropLayoutElementContext.Provider>

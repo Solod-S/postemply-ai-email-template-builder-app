@@ -5,11 +5,15 @@ import React from "react";
 import { Button } from "../ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { useUserDetail } from "@/app/provider";
 
 function SignInGoogleButton() {
+  const router = useRouter();
+  const { setUserDetail } = useUserDetail();
   const CreateUser = useMutation(api.users.CreateUser);
   const googleLogin = useGoogleLogin({
-    onSuccess: async tokenResponse => {
+    onSuccess: async (tokenResponse) => {
       const userInfo = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",
         { headers: { Authorization: "Bearer " + tokenResponse.access_token } }
@@ -29,9 +33,13 @@ function SignInGoogleButton() {
       if (typeof window !== undefined && user) {
         // Save to Local Storage
         localStorage.setItem("userDetail", JSON.stringify(userDetail));
+        setUserDetail(userDetail);
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 500);
       }
     },
-    onError: errorResponse => console.log(errorResponse),
+    onError: (errorResponse) => console.log(errorResponse),
   });
 
   return (
