@@ -8,7 +8,7 @@ function Hero() {
     <div className="px-10, md:px-28 lg:px-44 xl:px-56 py-20 flex flex-col items-center justify-center text-center">
       <h2 className="font-extrabold text-4xl">
         Elevate every email.
-        <span className="text-chart-1"> Ai-Powered</span>
+        <span className="text-blue-600"> Ai-Powered</span>
         <span className="text-primary"> Email Templates.</span>
       </h2>
       <p className="mt-6 text-lg text-gray-600 max-w-2xl">
