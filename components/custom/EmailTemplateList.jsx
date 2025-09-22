@@ -71,7 +71,7 @@ function EmailTemplateList() {
               />
               <div>
                 <h2 className="mt-2">{item?.description}</h2>
-                <Link href={`/editor/${item?._id}`}>
+                <Link href={`/editor/${item?.tid}`}>
                   <Button className="mt-2 w-full">View / Edit Template</Button>
                 </Link>
               </div>

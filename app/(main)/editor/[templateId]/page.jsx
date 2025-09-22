@@ -19,7 +19,7 @@ function Editor() {
   const convex = useConvex();
 
   useEffect(() => {
-    if (userDetail?.email) {
+    if (userDetail?.email && templateId) {
       GetTemplateData();
     }
   }, [userDetail]);
@@ -27,15 +27,15 @@ function Editor() {
   const GetTemplateData = async () => {
     try {
       setLoading(true);
-      console.log(`templateId`, templateId);
-      console.log(`userDetail?.email`, userDetail?.email);
       const result = await convex.query(api.emailTemplate.GetTemplateDesign, {
         tid: templateId,
         email: userDetail?.email,
       });
-
+      console.log(`result`, result);
       if (result?.design) {
-        setEmailTemplate(result.design); // fixed!
+        setEmailTemplate(result.design);
+      } else {
+        setEmailTemplate([]); // fixed!
       }
     } catch (error) {
       console.log("Error fetching template data:", error);
@@ -66,7 +66,6 @@ function Editor() {
         <Settings />
       </div>
     </div>
-
   );
 }
 
