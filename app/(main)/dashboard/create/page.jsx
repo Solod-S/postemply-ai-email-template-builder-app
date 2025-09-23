@@ -12,7 +12,7 @@ function CreateNew() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg border p-8 sm:p-10 lg:p-16 space-y-8">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-violet-600">
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary">
             Create New Email Template
           </h2>
           <p className="mt-2 text-base sm:text-lg text-gray-500">

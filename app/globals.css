@@ -123,3 +123,28 @@ label {
     @apply bg-background text-foreground;
   }
 }
+
+/* Контейнер по стандарту */
+.container {
+  max-width: 1200px; /* ограничиваем ширину на больших экранах */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 16px */
+  padding-right: 1rem;
+}
+
+/* На планшетах паддинги чуть больше */
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem; /* 32px */
+    padding-right: 2rem;
+  }
+}
+
+/* На десктопах можно ещё увеличить */
+@media (min-width: 1280px) {
+  .container {
+    padding-left: 3rem; /* 48px */
+    padding-right: 3rem;
+  }
+}

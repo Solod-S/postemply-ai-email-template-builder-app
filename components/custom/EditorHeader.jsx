@@ -65,56 +65,58 @@ function EditorHeader({ viewHTMLCode }) {
     selection.removeAllRanges();
   };
   return (
-    <div className="p-4  shadow-md flex justify-between items-center">
-      <Link href={"/"}>
-        <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
-      </Link>
-      <div className="flex gap-3">
-        <Button
-          onClick={() => setScreenSize("desktop")}
-          variant="ghost"
-          className={`hover:text-primary hover:bg-purple-100 ${screenSize === "desktop" && `bg-purple-100 text-primary`}`}
-        >
-          <Monitor /> Desktop
-        </Button>
-        <Button
-          onClick={() => setScreenSize("mobile")}
-          variant="ghost"
-          className={`hover:text-primary hover:bg-purple-100 ${screenSize === "mobile" && `bg-purple-100 text-primary`}`}
-        >
-          <Smartphone /> Mobile
-        </Button>
-      </div>
-      <div className="flex gap-3">
-        <Button
-          variant="ghost"
-          className="hover:text-primary hover:bg-purple-50"
-          onClick={() => viewHTMLCode(true)}
-        >
-          <Code />
-        </Button>
-        <Button
-          onClick={copyEmailTemplate}
-          className="flex items-center bg-slate-100 rounded-sm cursor-pointer hover:bg-slate-100 gap-1 text-slate-800 border-2 border-slate-300"
-        >
-          Copy Template
-          <MdOpenInNew />
-        </Button>
-        <div className="flex items-center gap-2">
+    <div className="p-4 shadow-md ">
+      <div className="container flex justify-between items-center">
+        <Link href={"/"}>
+          <Image src={"/logo.png"} alt="logo" width={100} height={20} />
+        </Link>
+        <div className="flex gap-3">
           <Button
-            onClick={onSaveTemplate}
-            className="flex items-center bg-violet-600 rounded-sm cursor-pointer hover:bg-violet-700 gap-1"
+            onClick={() => setScreenSize("desktop")}
+            variant="ghost"
+            className={`hover:text-primary hover:bg-purple-100 ${screenSize === "desktop" && `bg-purple-100 text-primary`}`}
           >
-            {isSaved ? (
-              <span className="text-slate-50 font-semibold text-sm flex items-center gap-1">
-                Saved! <FaRegSave />
-              </span>
-            ) : (
-              <>
-                Save Template <FaRegSave />
-              </>
-            )}
+            <Monitor /> Desktop
           </Button>
+          <Button
+            onClick={() => setScreenSize("mobile")}
+            variant="ghost"
+            className={`hover:text-primary hover:bg-purple-100 ${screenSize === "mobile" && `bg-purple-100 text-primary`}`}
+          >
+            <Smartphone /> Mobile
+          </Button>
+        </div>
+        <div className="flex gap-3">
+          <Button
+            variant="ghost"
+            className="hover:text-primary hover:bg-purple-50"
+            onClick={() => viewHTMLCode(true)}
+          >
+            <Code />
+          </Button>
+          <Button
+            onClick={copyEmailTemplate}
+            className="flex items-center bg-slate-100 rounded-sm cursor-pointer hover:bg-slate-100 gap-1 text-slate-800 border-2 border-slate-300"
+          >
+            Copy Template
+            <MdOpenInNew />
+          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={onSaveTemplate}
+              className="flex items-center bg-primary rounded-sm cursor-pointer hover:bg-violet-700 gap-1"
+            >
+              {isSaved ? (
+                <span className="text-slate-50 font-semibold text-sm flex items-center gap-1">
+                  Saved! <FaRegSave />
+                </span>
+              ) : (
+                <>
+                  Save Template <FaRegSave />
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

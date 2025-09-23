@@ -59,7 +59,7 @@ function AllInputBox() {
 
       <Button
         onClick={OnGenerate}
-        className="flex items-center justify-center w-full gap-2 bg-violet-600 cursor-pointer hover:bg-violet-700 text-white px-6 py-5 rounded-sm text-base sm:text-lg transition cursor-pointer"
+        className="flex items-center justify-center w-full gap-2 bg-primary cursor-pointer hover:bg-blue-400 text-white px-6 py-5 rounded-sm text-base sm:text-lg transition cursor-pointer"
         disabled={userInput?.length == 0 || loading}
       >
         {loading ? (

@@ -28,8 +28,8 @@ function ViewHTMLDialog({ openDialog, htmlCode, closeDialog }) {
                 HTML Email Template Code
               </h2>
               <button
-                className={`flex items-center gap-1 text-sm p-2 border-2 bg-violet-600 border-violet-600 rounded-sm cursor-pointer md:pl-5 md:pr-5 
-                "hover:bg-violet-600 text-slate-50`}
+                className={`flex items-center gap-1 text-sm p-2 border-2 bg-primary border-primary rounded-sm cursor-pointer md:pl-5 md:pr-5 
+                "hover:bg-primary text-slate-50`}
                 onClick={CopyCode}
               >
                 {copied ? (

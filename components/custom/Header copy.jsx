@@ -20,7 +20,7 @@ function Header() {
   return (
     <div className="flex items-center justify-between p-4 shadow-md">
       <Link href={"/"}>
-        <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
+        <Image src={"/logo.png"} alt="logo" width={100} height={20} />
       </Link>
       <div className="">
         {userDetail?.email ? (

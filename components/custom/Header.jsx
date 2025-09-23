@@ -18,39 +18,41 @@ import SignOutGoogleButton from "./SignOutGoogleButton ";
 function Header() {
   const { userDetail, setUserDetail } = useUserDetail();
   return (
-    <div className="flex items-center justify-between p-4 shadow-md">
-      <Link href={"/"}>
-        <Image src={"/logo.svg"} alt="logo" width={100} height={20} />
-      </Link>
-      <div className="">
-        {userDetail?.email ? (
-          <div className="flex gap-3 items-center">
-            <Link href={"/dashboard"}>
-              <Button>Dashboard</Button>
-            </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Image
-                  src={userDetail?.picture}
-                  alt="user"
-                  width={35}
-                  height={35}
-                  className="rounded-full cursor-pointer"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40">
-                {/* <DropdownMenuItem disabled>
+    <div className="  p-4 shadow-md">
+      <div className="container flex items-center justify-between">
+        <Link href={"/"}>
+          <Image src={"/logo.png"} alt="logo" width={100} height={20} />
+        </Link>
+        <div className="">
+          {userDetail?.email ? (
+            <div className="flex gap-3 items-center">
+              <Link href={"/dashboard"}>
+                <Button>Dashboard</Button>
+              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Image
+                    src={userDetail?.picture}
+                    alt="user"
+                    width={35}
+                    height={35}
+                    className="rounded-full cursor-pointer"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  {/* <DropdownMenuItem disabled>
                   {userDetail?.name || "User"}
                 </DropdownMenuItem> */}
-                <DropdownMenuItem>
-                  <SignOutGoogleButton />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) : (
-          <SignInGoogleButton />
-        )}
+                  <DropdownMenuItem>
+                    <SignOutGoogleButton />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <SignInGoogleButton />
+          )}
+        </div>
       </div>
     </div>
   );

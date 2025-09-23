@@ -18,6 +18,7 @@ function SignInGoogleButton() {
         "https://www.googleapis.com/oauth2/v3/userinfo",
         { headers: { Authorization: "Bearer " + tokenResponse.access_token } }
       );
+      console.log(`tokenResponse`, tokenResponse);
       const user = userInfo?.data;
 
       // Save to DB

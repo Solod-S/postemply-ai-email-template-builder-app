@@ -45,46 +45,48 @@ function FeaturesSec() {
         </div>
 
         {/* Feature grid */}
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              icon: <TbDragDrop className="w-12 h-12 text-cyan-600" />,
-              title: "Visual Layout Builder",
-              text: "Drag & drop blocks to craft the perfect layout without touching code.",
-            },
-            {
-              icon: (
-                <MdOutlineAutoAwesome className="w-12 h-12 text-orange-500" />
-              ),
-              title: "AI Content Magic",
-              text: "Instantly generate subject lines, email copy, and CTAs that convert.",
-            },
-            {
-              icon: (
-                <RiMailDownloadLine className="w-12 h-12 text-emerald-600" />
-              ),
-              title: "Template Library",
-              text: "Save and reuse your best-performing templates with a single click.",
-            },
-            {
-              icon: (
-                <MdOutlineDashboardCustomize className="w-12 h-12 text-pink-500" />
-              ),
-              title: "Brand Consistency",
-              text: "Apply logos, colors, and typography to stay 100% on-brand.",
-            },
-          ].map((f, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition"
-            >
-              {f.icon}
-              <h5 className="mt-4 text-xl font-semibold text-gray-900">
-                {f.title}
-              </h5>
-              <p className="mt-2 text-gray-600">{f.text}</p>
-            </div>
-          ))}
+        <div className="container">
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: <TbDragDrop className="w-12 h-12 text-cyan-600" />,
+                title: "Visual Layout Builder",
+                text: "Drag & drop blocks to craft the perfect layout without touching code.",
+              },
+              {
+                icon: (
+                  <MdOutlineAutoAwesome className="w-12 h-12 text-orange-500" />
+                ),
+                title: "AI Content Magic",
+                text: "Instantly generate subject lines, email copy, and CTAs that convert.",
+              },
+              {
+                icon: (
+                  <RiMailDownloadLine className="w-12 h-12 text-emerald-600" />
+                ),
+                title: "Template Library",
+                text: "Save and reuse your best-performing templates with a single click.",
+              },
+              {
+                icon: (
+                  <MdOutlineDashboardCustomize className="w-12 h-12 text-pink-500" />
+                ),
+                title: "Brand Consistency",
+                text: "Apply logos, colors, and typography to stay 100% on-brand.",
+              },
+            ].map((f, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition"
+              >
+                {f.icon}
+                <h5 className="mt-4 text-xl font-semibold text-gray-900">
+                  {f.title}
+                </h5>
+                <p className="mt-2 text-gray-600">{f.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
